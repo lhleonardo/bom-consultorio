@@ -42,7 +42,7 @@ A aplicação estará disponível em `http://localhost:8080`.
 
 - **[Leonardo Braz](https://github.com/lhleonardo)**
 - **[Guilherme Ochikubo](https://github.com/gbochikubo)**
-- **[Guilherme Melo](https://github.com/guihenmelo)**
+- **[Guilherme Melo](https://github.com/ghenmelo)**
 
 ## Licença
 
