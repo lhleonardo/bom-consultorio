@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: bom-consultorio-db
+    environment:
+      POSTGRES_DB: bom_consultorio
+      POSTGRES_USER: bom_app
+      POSTGRES_PASSWORD: bom_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - bom-consultorio-network
+
+networks:
+  bom-consultorio-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
