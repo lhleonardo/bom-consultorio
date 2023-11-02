@@ -1,4 +1,4 @@
-CREATE TABLE usuario
+CREATE TABLE consultorio.public.usuario
 (
     id              serial primary key,
     identificador   uuid                     not null,
