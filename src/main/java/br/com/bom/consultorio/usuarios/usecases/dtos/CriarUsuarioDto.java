@@ -13,7 +13,6 @@ public record CriarUsuarioDto (
     public String toString() {
         return "CriarUsuarioDto{" +
                 "email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
                 ", administrador=" + administrador +
                 '}';
     }
