@@ -1,22 +1,22 @@
 package br.com.bom.consultorio.usuarios.models;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.usuarios.enums.PerfilEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.UUID;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity(name = "usuario")
+@Getter
+@Setter
 public class UsuarioModel {
 
     @Id
@@ -32,15 +32,12 @@ public class UsuarioModel {
     private String email;
 
     @Column(name = "password_hashed", nullable = false)
-    private String passwordHashed;
+    private String senhaHash;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "perfil", nullable = false)
-    private PerfilEnum perfil;
+    private Boolean administradorGlobal;
 
-    @ManyToOne
-    @JoinColumn(name = "id_empresa")
-    private EmpresaModel empresa;
+    @OneToMany(mappedBy = "usuario")
+    private List<UsuarioEmpresaModel> empresasVinculadas;
 
     @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime dataCriacao;
