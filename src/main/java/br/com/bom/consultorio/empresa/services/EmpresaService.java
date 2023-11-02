@@ -1,5 +1,6 @@
 package br.com.bom.consultorio.empresa.services;
 
+import br.com.bom.consultorio.empresa.exceptions.EmpresaJaCadastradaParaCnpjException;
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
 import br.com.bom.consultorio.empresa.requests.CriarEmpresaRequest;
@@ -34,8 +35,7 @@ public class EmpresaService {
         log.info("Inserindo nova empresa: {}", criarEmpresaRequest);
 
         if (this.empresaRepository.findByCnpj(criarEmpresaRequest.getCnpj()).isPresent()) {
-            // TODO: Substituir por exceptions da aplicação e criar um exception handler
-            throw new IllegalArgumentException("Já existe uma empresa cadastrada para esse CNPJ!");
+            throw new EmpresaJaCadastradaParaCnpjException();
         }
 
         EmpresaModel empresa = new EmpresaModel();
