@@ -1,4 +1,4 @@
-CREATE table empresa
+CREATE table consultorio.public.empresa
 (
     id                 SERIAL PRIMARY KEY,
     identificador      UUID                     NOT NULL,
