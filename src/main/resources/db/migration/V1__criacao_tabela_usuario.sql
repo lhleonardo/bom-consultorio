@@ -1,13 +1,14 @@
 CREATE TABLE consultorio.public.usuario
 (
-    id              serial primary key,
-    identificador   uuid                     not null,
-    email           VARCHAR(320)             not null,
-    password_hashed VARCHAR(255)             not null,
-    ativo           boolean                  not null default true,
-    administrador   boolean                  not null default false,
-    data_criacao    timestamp with time zone not null default now(),
-    data_alteracao  timestamp with time zone
+    id               serial primary key,
+    identificador    uuid                     not null,
+    email            VARCHAR(320)             not null,
+    senha            VARCHAR(255)             not null,
+    ativo            boolean                  not null default true,
+    administrador    boolean                  not null default false,
+    email_verificado boolean                  not null default false,
+    data_criacao     timestamp with time zone not null default now(),
+    data_alteracao   timestamp with time zone
 );
 
 CREATE TABLE consultorio.public.usuario_empresa

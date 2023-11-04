@@ -3,7 +3,7 @@ package br.com.bom.consultorio.usuarios.usecases.dtos;
 import lombok.Builder;
 
 @Builder
-public record CriarUsuarioDto (
+public record CriarUsuarioUseCaseRequest(
     String email,
     String senha,
     boolean administrador

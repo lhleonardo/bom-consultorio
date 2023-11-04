@@ -14,9 +14,9 @@ import org.hibernate.validator.constraints.UUID;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Entity(name = "usuario")
 @Getter
 @Setter
+@Entity(name = "usuario")
 public class UsuarioModel {
 
     @Id
@@ -31,10 +31,17 @@ public class UsuarioModel {
     @Column(nullable = false)
     private String email;
 
-    @Column(name = "password_hashed", nullable = false)
-    private String senhaHash;
+    @Column(name = "senha", nullable = false)
+    private String senha;
 
-    private Boolean administradorGlobal;
+    @Column(name = "administrador", nullable = false)
+    private Boolean administradorPlataforma;
+
+    @Column(name = "email_verificado", nullable = false)
+    private Boolean emailVerificado;
+
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo;
 
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioEmpresaModel> empresasVinculadas;

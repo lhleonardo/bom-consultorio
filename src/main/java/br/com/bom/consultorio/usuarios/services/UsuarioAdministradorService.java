@@ -4,7 +4,7 @@ import br.com.bom.consultorio.usuarios.exceptions.ConfirmacaoSenhaInvalidaExcept
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
 import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
 import br.com.bom.consultorio.usuarios.usecases.CriarNovoUsuarioUseCase;
-import br.com.bom.consultorio.usuarios.usecases.dtos.CriarUsuarioDto;
+import br.com.bom.consultorio.usuarios.usecases.dtos.CriarUsuarioUseCaseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class UsuarioAdministradorService {
         }
 
         UsuarioModel usuarioCriado = this.criarNovoUsuarioUseCase.executar(
-                new CriarUsuarioDto(criarUsuarioRequest.getEmail(), criarUsuarioRequest.getSenha(), true)
+                new CriarUsuarioUseCaseRequest(criarUsuarioRequest.getEmail(), criarUsuarioRequest.getSenha(), true)
         );
 
         return usuarioCriado;
