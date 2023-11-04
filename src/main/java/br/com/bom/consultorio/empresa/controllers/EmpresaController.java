@@ -1,8 +1,8 @@
 package br.com.bom.consultorio.empresa.controllers;
 
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.empresa.requests.CriarEmpresaRequest;
-import br.com.bom.consultorio.empresa.requests.CriarEmpresaResponse;
+import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaRequest;
+import br.com.bom.consultorio.empresa.payloads.responses.CriarEmpresaResponse;
 import br.com.bom.consultorio.empresa.services.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

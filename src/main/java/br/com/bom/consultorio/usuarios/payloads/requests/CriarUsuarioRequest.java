@@ -1,4 +1,4 @@
-package br.com.bom.consultorio.usuarios.payloads;
+package br.com.bom.consultorio.usuarios.payloads.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

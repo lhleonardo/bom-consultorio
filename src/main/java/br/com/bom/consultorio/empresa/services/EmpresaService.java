@@ -3,7 +3,7 @@ package br.com.bom.consultorio.empresa.services;
 import br.com.bom.consultorio.empresa.exceptions.EmpresaJaCadastradaParaCnpjException;
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
-import br.com.bom.consultorio.empresa.requests.CriarEmpresaRequest;
+import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

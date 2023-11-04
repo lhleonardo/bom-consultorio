@@ -1,4 +1,4 @@
-package br.com.bom.consultorio.empresa.requests;
+package br.com.bom.consultorio.empresa.payloads.responses;
 
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import io.swagger.v3.oas.annotations.media.Schema;

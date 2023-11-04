@@ -2,7 +2,7 @@ package br.com.bom.consultorio.usuarios.services;
 
 import br.com.bom.consultorio.usuarios.exceptions.ConfirmacaoSenhaInvalidaException;
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
-import br.com.bom.consultorio.usuarios.payloads.CriarUsuarioRequest;
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
 import br.com.bom.consultorio.usuarios.usecases.CriarNovoUsuarioUseCase;
 import br.com.bom.consultorio.usuarios.usecases.dtos.CriarUsuarioDto;
 import lombok.RequiredArgsConstructor;

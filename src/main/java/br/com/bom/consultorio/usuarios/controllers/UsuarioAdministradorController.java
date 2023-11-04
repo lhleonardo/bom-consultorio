@@ -1,6 +1,6 @@
 package br.com.bom.consultorio.usuarios.controllers;
 
-import br.com.bom.consultorio.usuarios.payloads.CriarUsuarioRequest;
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
 import br.com.bom.consultorio.usuarios.services.UsuarioAdministradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

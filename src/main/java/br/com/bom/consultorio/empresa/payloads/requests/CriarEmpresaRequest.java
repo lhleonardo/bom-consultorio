@@ -1,4 +1,4 @@
-package br.com.bom.consultorio.empresa.requests;
+package br.com.bom.consultorio.empresa.payloads.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
