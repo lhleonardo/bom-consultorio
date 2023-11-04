@@ -2,10 +2,10 @@ CREATE table consultorio.public.empresa
 (
     id                 SERIAL PRIMARY KEY,
     identificador      UUID                     NOT NULL,
-    slug varchar(100)
+    slug               varchar(100) unique,
     razao_social       VARCHAR(255)             NOT NULL,
     nome_fantasia      VARCHAR(255)             not null,
-    cnpj               varchar(14)              not null,
+    cnpj               varchar(14) unique       not null,
     inscricao_estadual varchar(40),
     site               varchar(255) null,
     logotipo           varchar(255) null,
