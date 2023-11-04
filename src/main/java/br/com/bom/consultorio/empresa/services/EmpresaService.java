@@ -1,16 +1,12 @@
 package br.com.bom.consultorio.empresa.services;
 
-import br.com.bom.consultorio.empresa.exceptions.EmpresaJaCadastradaParaCnpjException;
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
-import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaRequest;
+import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
+import br.com.bom.consultorio.empresa.usecases.CriarEmpresaUseCase;
+import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.OffsetDateTime;
-import java.util.UUID;
 
 /**
  * Service para gerenciamento das empresas/tenants da plataforma. Aqui serão feitos os cadastros
@@ -22,32 +18,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmpresaService {
 
-    private final EmpresaRepository empresaRepository;
+    private final CriarEmpresaUseCase criarEmpresaUseCase;
 
     /**
      * Criar uma nova empresa para utilização como tenant
-     * @param criarEmpresaRequest dados cadastrais
+     * @param criarEmpresaApiRequest dados cadastrais
      * @return model da empresa criada
      */
-    @Transactional
-    public EmpresaModel criarEmpresa(CriarEmpresaRequest criarEmpresaRequest) {
+    public EmpresaModel criarEmpresa(CriarEmpresaApiRequest criarEmpresaApiRequest) {
+        CriarEmpresaUseCaseRequest useCaseRequest = CriarEmpresaUseCaseRequest
+                .builder()
+                .slug(criarEmpresaApiRequest.getSlug())
+                .inscricaoEstadual(criarEmpresaApiRequest.getInscricaoEstadual())
+                .nomeFantasia(criarEmpresaApiRequest.getNomeFantasia())
+                .razaoSocial(criarEmpresaApiRequest.getRazaoSocial())
+                .cnpj(criarEmpresaApiRequest.getCnpj())
+                .build();
 
-        log.info("Inserindo nova empresa: {}", criarEmpresaRequest);
-
-        if (this.empresaRepository.findByCnpj(criarEmpresaRequest.getCnpj()).isPresent()) {
-            throw new EmpresaJaCadastradaParaCnpjException();
-        }
-
-        EmpresaModel empresa = new EmpresaModel();
-
-        empresa.setIdentificador(UUID.randomUUID().toString());
-        empresa.setDataCriacao(OffsetDateTime.now());
-
-        empresa.setCnpj(criarEmpresaRequest.getCnpj());
-        empresa.setRazaoSocial(criarEmpresaRequest.getRazaoSocial());
-        empresa.setNomeFantasia(criarEmpresaRequest.getNomeFantasia());
-        empresa.setInscricaoEstadual(empresa.getInscricaoEstadual());
-
-        return this.empresaRepository.save(empresa);
+        return this.criarEmpresaUseCase.executar(useCaseRequest);
     }
 }

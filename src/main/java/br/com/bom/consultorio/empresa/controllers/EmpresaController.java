@@ -1,7 +1,7 @@
 package br.com.bom.consultorio.empresa.controllers;
 
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaRequest;
+import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
 import br.com.bom.consultorio.empresa.payloads.responses.CriarEmpresaResponse;
 import br.com.bom.consultorio.empresa.services.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,9 +27,9 @@ public class EmpresaController {
             summary = "Criar uma nova empresa"
     )
     public CriarEmpresaResponse criarNovaEmpresa(
-            @RequestBody @Valid CriarEmpresaRequest criarEmpresaRequest) {
+            @RequestBody @Valid CriarEmpresaApiRequest criarEmpresaApiRequest) {
 
-        EmpresaModel empresaModel = this.empresaService.criarEmpresa(criarEmpresaRequest);
+        EmpresaModel empresaModel = this.empresaService.criarEmpresa(criarEmpresaApiRequest);
         return CriarEmpresaResponse.fromModel(empresaModel);
     }
 }

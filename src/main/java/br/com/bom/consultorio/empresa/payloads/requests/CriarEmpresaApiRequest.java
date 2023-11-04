@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 @Data
 @Schema(description = "Dados necessários para cadastrar uma nova empresa/tenant")
-public class CriarEmpresaRequest {
+public class CriarEmpresaApiRequest {
 
     @NotBlank
     @Schema(description = "Razão social da empresa")
@@ -24,4 +24,7 @@ public class CriarEmpresaRequest {
 
     @Schema(description = "Código da inscrição estadual da empresa")
     private String inscricaoEstadual;
+
+    @Schema(description = "Slug de URL para a empresa informada")
+    private String slug;
 }

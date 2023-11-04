@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum EmpresaExceptionEnum implements MensagensExceptionStrategy {
-    EMPRESA_JA_CADASTRADA("EMP001", "Empresa já cadastrada para o CNPJ informado");
+    EMPRESA_JA_CADASTRADA("EMP001", "Empresa já cadastrada para o CNPJ informado"),
+    SLUG_EMPRESA_JA_CADASTRADO("EMP002", "O 'slug' informado já existe na plataforma");
 
     private final String codigo;
     private final String mensagem;

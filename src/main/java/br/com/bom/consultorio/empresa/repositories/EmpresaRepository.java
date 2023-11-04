@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface EmpresaRepository extends JpaRepository<EmpresaModel, Integer> {
 
     Optional<EmpresaModel> findByCnpj(String cnpj);
+
+    Boolean existsByCnpj(String cnpj);
+    Boolean existsBySlug(String slug);
 }
