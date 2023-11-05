@@ -9,6 +9,8 @@ public interface EmpresaRepository extends JpaRepository<EmpresaModel, Integer> 
 
     Optional<EmpresaModel> findByCnpj(String cnpj);
 
+    Optional<EmpresaModel> findBySlug(String slug);
+
     Boolean existsByCnpj(String cnpj);
     Boolean existsBySlug(String slug);
 }

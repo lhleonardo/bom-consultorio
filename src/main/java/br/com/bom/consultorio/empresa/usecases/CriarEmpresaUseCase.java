@@ -5,6 +5,7 @@ import br.com.bom.consultorio.empresa.exceptions.SlugEmpresaJaCadastradoExceptio
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
 import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
+import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,6 +30,8 @@ public class CriarEmpresaUseCase {
      */
     public EmpresaModel executar(@Valid CriarEmpresaUseCaseRequest criarEmpresaRequest) {
         log.info("Inserindo nova empresa: {}", criarEmpresaRequest);
+
+        log.info("Empresa atual conectada: {}", EmpresaTenantContext.getEmpresaAtual());
 
         if (this.empresaRepository.existsByCnpj(criarEmpresaRequest.getCnpj())) {
             throw new EmpresaJaCadastradaParaCnpjException();
