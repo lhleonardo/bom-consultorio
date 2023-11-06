@@ -27,12 +27,7 @@ public class AutenticarUsuarioUseCase {
         UsuarioModel usuarioModel = (UsuarioModel) authentication.getPrincipal();
 
         boolean adminPlataforma = usuarioModel.isAdministradorPlataforma();
-
-        boolean possuiVinculoComEmpresa = usuarioModel.getEmpresasVinculadas()
-                .stream()
-                .map(UsuarioEmpresaModel::getEmpresa)
-                .map(EmpresaModel::getIdentificador)
-                .anyMatch(identificadorEmpresa -> identificadorEmpresa.equals(EmpresaTenantContext.getEmpresaAtual()));
+        boolean possuiVinculoComEmpresa = usuarioModel.possuiVinculoComEmpresa(EmpresaTenantContext.getEmpresaAtual());
 
         if (!adminPlataforma && !possuiVinculoComEmpresa) {
             throw new BadCredentialsException("Bad credentials");

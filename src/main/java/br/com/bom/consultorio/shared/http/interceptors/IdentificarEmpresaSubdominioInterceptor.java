@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.stream.Stream;
-
 @Log4j2
 @Component
 @RequiredArgsConstructor
@@ -32,9 +30,7 @@ public class IdentificarEmpresaSubdominioInterceptor implements HandlerIntercept
             String subdominio = serverName.split(REGEX_DELIMITADOR_SUBDOMINIO)[0];
 
             this.consultarEmpresaPorSlugUseCase.executar(subdominio)
-                    .ifPresent(empresaModel -> {
-                        EmpresaTenantContext.setEmpresaAtual(empresaModel.getIdentificador());
-                    });
+                    .ifPresent(empresaModel -> EmpresaTenantContext.setEmpresaAtual(empresaModel));
         }
 
         return true;

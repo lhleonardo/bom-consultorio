@@ -1,5 +1,7 @@
 package br.com.bom.consultorio.usuarios.models;
 
+import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.usuarios.enums.PerfilAcessoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -55,6 +58,25 @@ public class UsuarioModel implements UserDetails {
 
     @Column(name = "data_alteracao", nullable = false)
     private OffsetDateTime dataAlteracao;
+
+    public boolean possuiVinculoComEmpresa(EmpresaModel empresa) {
+        if (Objects.isNull(empresa)) return false;
+
+        return this.empresasVinculadas
+                .stream()
+                .map(UsuarioEmpresaModel::getEmpresa)
+                .anyMatch(empresaVinculada -> empresaVinculada.getIdentificador().equals(empresa.getIdentificador()));
+    }
+
+    public PerfilAcessoEnum getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
+        if (this.isAdministradorPlataforma()) return PerfilAcessoEnum.ADMINISTRADOR;
+
+        return this.getEmpresasVinculadas()
+                .stream()
+                .filter(vinculo -> vinculo.getEmpresa().getIdentificador().equals(empresaModel.getIdentificador()))
+                .map(UsuarioEmpresaModel::getPerfil)
+                .findFirst().orElseThrow();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

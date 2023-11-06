@@ -4,6 +4,7 @@ import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
 import br.com.bom.consultorio.empresa.payloads.responses.CriarEmpresaResponse;
 import br.com.bom.consultorio.empresa.services.EmpresaService;
+import br.com.bom.consultorio.shared.auth.Autenticado;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Autenticado
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/empresas")

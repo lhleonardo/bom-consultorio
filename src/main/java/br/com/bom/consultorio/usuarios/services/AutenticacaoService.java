@@ -6,9 +6,11 @@ import br.com.bom.consultorio.usuarios.payloads.responses.LoginApiResponse;
 import br.com.bom.consultorio.usuarios.usecases.AutenticarUsuarioUseCase;
 import br.com.bom.consultorio.usuarios.usecases.dtos.AutenticarUsuarioUseCaseResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +28,9 @@ public class AutenticacaoService {
         response.setIdentificadorUsuario(autenticarUsuarioUseCaseResponse.identificadorUsuario());
 
         response.setDataAutenticacao(LocalDateTime.now());
-        response.setEmpresaAutenticada(EmpresaTenantContext.getEmpresaAtual());
+        if (!Objects.isNull(EmpresaTenantContext.getEmpresaAtual())) {
+            response.setEmpresaAutenticada(EmpresaTenantContext.getEmpresaAtual().getIdentificador());
+        }
 
         return response;
     }
