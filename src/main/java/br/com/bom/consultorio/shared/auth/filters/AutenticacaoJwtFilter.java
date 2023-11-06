@@ -1,4 +1,4 @@
-package br.com.bom.consultorio.shared.http.filters;
+package br.com.bom.consultorio.shared.auth.filters;
 
 import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import br.com.bom.consultorio.shared.jwt.dtos.DadosTokenJwtAutenticacaoDto;
@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,9 +26,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 
+@Log4j2
 @Component
 @RequiredArgsConstructor
-public class JwtFilter extends OncePerRequestFilter {
+public class AutenticacaoJwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
@@ -35,6 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info("Executando filtro JWT");
         Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
                 .map(header -> header.replace("Bearer ", StringUtils.EMPTY))
                 .ifPresent(token -> this.autenticarUsuarioViaTokenJwt(token, filterChain));

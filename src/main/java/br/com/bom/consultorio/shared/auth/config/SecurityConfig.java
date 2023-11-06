@@ -1,5 +1,7 @@
-package br.com.bom.consultorio.usuarios.config;
+package br.com.bom.consultorio.shared.auth.config;
 
+import br.com.bom.consultorio.shared.auth.filters.AutenticacaoJwtFilter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,10 +10,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Log4j2
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] ROTAS_PERMITIDAS = {
@@ -22,6 +26,8 @@ public class SecurityConfig {
             "/api/v1/auth/**"
     };
 
+    private final AutenticacaoJwtFilter autenticacaoJwtFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("Configurando o websecurity...");
@@ -31,6 +37,8 @@ public class SecurityConfig {
             authorize.requestMatchers(ROTAS_PERMITIDAS).permitAll();
             authorize.anyRequest().authenticated();
         });
+
+        http.addFilterBefore(this.autenticacaoJwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

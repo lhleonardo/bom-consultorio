@@ -22,18 +22,18 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class JwtService {
 
+    private static final ZoneOffset ZONE_OFFSET_BRASIL = ZoneOffset.of("-03:00");;
+
     private final ApplicationContext applicationContext;
     private final JwtEnvironment jwtEnvironment;
 
     public String gerarTokenJwt(UsuarioModel usuarioModel) {
-        final ZoneOffset zoneOffsetBrasil = ZoneOffset.of("-03:00");
-
         Instant dataCriacao = LocalDateTime.now()
-                .toInstant(zoneOffsetBrasil);
+                .toInstant(ZONE_OFFSET_BRASIL);
 
         Instant dataExpiracao = LocalDateTime.now()
                 .plusMinutes(30)
-                .toInstant(zoneOffsetBrasil);
+                .toInstant(ZONE_OFFSET_BRASIL);
 
         return JWT.create()
                 .withIssuedAt(dataCriacao)
@@ -53,7 +53,7 @@ public class JwtService {
         DecodedJWT tokenDecodificado = this.decodificarToken(token);
 
         return DadosTokenJwtAutenticacaoDto.builder()
-                .dataExpiracao(LocalDateTime.from(tokenDecodificado.getExpiresAtAsInstant()))
+                .dataExpiracao(LocalDateTime.ofInstant(tokenDecodificado.getExpiresAtAsInstant(), ZONE_OFFSET_BRASIL))
                 .usuarioMaster(tokenDecodificado.getClaim(CamposTokenJwt.MASTER).asBoolean())
                 .identificadorEmpresaAutenticada(tokenDecodificado.getClaim(CamposTokenJwt.IDENTIFICADOR_TENANT_EMPRESA).asString())
                 .identificadorUsuarioAutenticado(tokenDecodificado.getSubject())
