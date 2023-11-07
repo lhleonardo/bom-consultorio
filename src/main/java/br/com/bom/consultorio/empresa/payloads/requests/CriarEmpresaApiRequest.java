@@ -1,7 +1,9 @@
 package br.com.bom.consultorio.empresa.payloads.requests;
 
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioApiRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -27,4 +29,8 @@ public class CriarEmpresaApiRequest {
 
     @Schema(description = "Slug de URL para a empresa informada")
     private String slug;
+
+    @NotNull
+    @Schema(description = "Dados do primeiro usuário da empresa (administrador)")
+    private CriarUsuarioApiRequest primeiroUsuario;
 }

@@ -24,6 +24,9 @@ public class CriarEmpresaUseCase {
     /**
      * Criar uma nova empresa na plataforma, para atuar como uma agrupadora de informações. Todos os próximos
      * registros poderão ter o vínculo de "pertencem" a empresa.
+     * <p>
+     * Além disso, ao criar uma empresa, o primeiro usuário de acesso ADMINISTRADOR é criado e vinculado como gestor
+     * da empresa.
      *
      * @param criarEmpresaRequest dados necessários para cadastrar uma nova empresa
      * @return model representativo da empresa

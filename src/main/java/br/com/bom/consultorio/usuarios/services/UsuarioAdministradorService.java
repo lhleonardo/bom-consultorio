@@ -2,7 +2,7 @@ package br.com.bom.consultorio.usuarios.services;
 
 import br.com.bom.consultorio.usuarios.exceptions.ConfirmacaoSenhaInvalidaException;
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
-import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioApiRequest;
 import br.com.bom.consultorio.usuarios.usecases.CriarNovoUsuarioUseCase;
 import br.com.bom.consultorio.usuarios.usecases.dtos.CriarUsuarioUseCaseRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +16,20 @@ public class UsuarioAdministradorService {
 
     private final CriarNovoUsuarioUseCase criarNovoUsuarioUseCase;
 
-    public UsuarioModel criarNovoAdministrador(CriarUsuarioRequest criarUsuarioRequest) {
-
-        String senha = criarUsuarioRequest.getSenha();
-        String confirmacaoSenha = criarUsuarioRequest.getConfirmacaoSenha();
-
-        if (!senha.equals(confirmacaoSenha)) {
+    public UsuarioModel criarNovoAdministrador(CriarUsuarioApiRequest criarUsuarioApiRequest) {
+        if (!criarUsuarioApiRequest.isSenhaConfirmada()) {
             throw new ConfirmacaoSenhaInvalidaException();
         }
 
         UsuarioModel usuarioCriado = this.criarNovoUsuarioUseCase.executar(
-                new CriarUsuarioUseCaseRequest(criarUsuarioRequest.getEmail(), criarUsuarioRequest.getSenha(), true)
+                new CriarUsuarioUseCaseRequest(
+                        criarUsuarioApiRequest.getEmail(),
+                        criarUsuarioApiRequest.getSenha(),
+                        true,
+                        criarUsuarioApiRequest.getNome(),
+                        criarUsuarioApiRequest.getDocumento(),
+                        criarUsuarioApiRequest.getTelefone()
+                )
         );
 
         return usuarioCriado;

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @Schema(description = "Dados da criação de uma empresa/tenant")
-public class CriarEmpresaResponse {
+public class CriarEmpresaApiResponse {
 
     @Schema(description = "Identificador UUID da empresa")
     private UUID identificador;
@@ -29,16 +29,16 @@ public class CriarEmpresaResponse {
     @Schema(description = "Data de criação da empresa")
     private OffsetDateTime dataCriacao;
 
-    public static CriarEmpresaResponse fromModel(EmpresaModel empresaModel) {
-        CriarEmpresaResponse criarEmpresaResponse = new CriarEmpresaResponse();
-        criarEmpresaResponse.setCnpj(empresaModel.getCnpj());
-        criarEmpresaResponse.setIdentificador(UUID.fromString(empresaModel.getIdentificador()));
-        criarEmpresaResponse.setDataCriacao(empresaModel.getDataCriacao());
-        criarEmpresaResponse.setNomeFantasia(empresaModel.getNomeFantasia());
-        criarEmpresaResponse.setRazaoSocial(empresaModel.getRazaoSocial());
-        criarEmpresaResponse.setInscricaoEstadual(empresaModel.getInscricaoEstadual());
+    public static CriarEmpresaApiResponse fromModel(EmpresaModel empresaModel) {
+        CriarEmpresaApiResponse criarEmpresaApiResponse = new CriarEmpresaApiResponse();
+        criarEmpresaApiResponse.setCnpj(empresaModel.getCnpj());
+        criarEmpresaApiResponse.setIdentificador(UUID.fromString(empresaModel.getIdentificador()));
+        criarEmpresaApiResponse.setDataCriacao(empresaModel.getDataCriacao());
+        criarEmpresaApiResponse.setNomeFantasia(empresaModel.getNomeFantasia());
+        criarEmpresaApiResponse.setRazaoSocial(empresaModel.getRazaoSocial());
+        criarEmpresaApiResponse.setInscricaoEstadual(empresaModel.getInscricaoEstadual());
 
-        return criarEmpresaResponse;
+        return criarEmpresaApiResponse;
     }
 
 }

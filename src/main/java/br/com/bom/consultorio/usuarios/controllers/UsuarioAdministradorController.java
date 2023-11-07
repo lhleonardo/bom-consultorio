@@ -1,7 +1,7 @@
 package br.com.bom.consultorio.usuarios.controllers;
 
 import br.com.bom.consultorio.shared.http.consts.OpenApiConsts;
-import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioApiRequest;
 import br.com.bom.consultorio.usuarios.services.UsuarioAdministradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -33,7 +33,7 @@ public class UsuarioAdministradorController {
                     "as empresas. Só pode ser criado por outro usuário administrador.",
             summary = "Criar um novo administrador da plataforma"
     )
-    public void criarUsuarioAdministrador(@RequestBody @Valid CriarUsuarioRequest criarUsuarioRequest) {
-        this.usuarioAdministradorService.criarNovoAdministrador(criarUsuarioRequest);
+    public void criarUsuarioAdministrador(@RequestBody @Valid CriarUsuarioApiRequest criarUsuarioApiRequest) {
+        this.usuarioAdministradorService.criarNovoAdministrador(criarUsuarioApiRequest);
     }
 }

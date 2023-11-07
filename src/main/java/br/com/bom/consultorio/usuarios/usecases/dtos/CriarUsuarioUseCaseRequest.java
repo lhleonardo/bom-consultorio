@@ -6,7 +6,10 @@ import lombok.Builder;
 public record CriarUsuarioUseCaseRequest(
     String email,
     String senha,
-    boolean administrador
+    boolean administrador,
+    String nome,
+    String documento,
+    String telefone
 ) {
 
     @Override

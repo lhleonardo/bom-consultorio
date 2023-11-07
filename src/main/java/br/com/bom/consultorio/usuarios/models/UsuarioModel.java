@@ -53,6 +53,16 @@ public class UsuarioModel implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioEmpresaModel> empresasVinculadas;
 
+    @Column
+    private String nome;
+
+    @Column
+    private String telefone;
+
+    @Column
+    private String documento;
+
+
     @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime dataCriacao;
 
