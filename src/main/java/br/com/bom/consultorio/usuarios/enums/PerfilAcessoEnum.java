@@ -1,6 +1,6 @@
 package br.com.bom.consultorio.usuarios.enums;
 
-public enum PerfilEnum {
+public enum PerfilAcessoEnum {
     ADMINISTRADOR,
     FINANCEIRO,
     PROFISSIONAL,

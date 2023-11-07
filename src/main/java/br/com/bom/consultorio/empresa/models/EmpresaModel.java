@@ -30,8 +30,11 @@ public class EmpresaModel {
     @Column(name = "nome_fantasia", nullable = false)
     private String nomeFantasia;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cnpj;
+
+    @Column(nullable = false, unique = true)
+    private String slug;
 
     @Column(name = "inscricao_estadual")
     private String inscricaoEstadual;
