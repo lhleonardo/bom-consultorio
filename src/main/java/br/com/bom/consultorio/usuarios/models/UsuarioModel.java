@@ -1,7 +1,7 @@
 package br.com.bom.consultorio.usuarios.models;
 
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.usuarios.enums.PerfilAcessoEnum;
+import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -78,8 +78,8 @@ public class UsuarioModel implements UserDetails {
                 .anyMatch(empresaVinculada -> empresaVinculada.getIdentificador().equals(empresa.getIdentificador()));
     }
 
-    public PerfilAcessoEnum getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
-        if (this.isAdministradorPlataforma()) return PerfilAcessoEnum.ADMINISTRADOR;
+    public PerfilAcessoUsuarioEmpresaEnum getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
+        if (this.isAdministradorPlataforma()) return PerfilAcessoUsuarioEmpresaEnum.ADMINISTRADOR;
 
         return this.getEmpresasVinculadas()
                 .stream()

@@ -3,27 +3,30 @@ package br.com.bom.consultorio.usuarios.services;
 import br.com.bom.consultorio.usuarios.exceptions.ConfirmacaoSenhaInvalidaException;
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
 import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioApiRequest;
-import br.com.bom.consultorio.usuarios.usecases.BuscarUsuarioPeloEmailUseCase;
+import br.com.bom.consultorio.usuarios.usecases.CriarNovoUsuarioUseCase;
 import br.com.bom.consultorio.usuarios.usecases.dtos.CriarUsuarioUseCaseRequest;
+import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService {
 
-    private final BuscarUsuarioPeloEmailUseCase buscarUsuarioPeloEmailUseCase;
+    private final CriarNovoUsuarioUseCase criarNovoUsuarioUseCase;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.buscarUsuarioPeloEmailUseCase.executar(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-    }
-
-    public UsuarioModel criarNovoUsuario(CriarUsuarioApiRequest criarUsuarioApiRequest) {
+    /**
+     * Cria um novo usuário na plataforma, vinculado diretamente para a empresa atual no contexto
+     * (presente em {@link EmpresaTenantContext}). Apenas usuários com cargo ADMINISTRADOR da empresa podem cadastrar
+     * novos usuários.
+     *
+     * @param criarUsuarioApiRequest
+     * @return
+     * @see EmpresaTenantContext
+     */
+    public UsuarioModel criarUsuario(CriarUsuarioApiRequest criarUsuarioApiRequest) {
         if (!criarUsuarioApiRequest.isSenhaConfirmada()) throw new ConfirmacaoSenhaInvalidaException();
 
         UsuarioModel usuarioCriado = this.criarNovoUsuarioUseCase.executar(
