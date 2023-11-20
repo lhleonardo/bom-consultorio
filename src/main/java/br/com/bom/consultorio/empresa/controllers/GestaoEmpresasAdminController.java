@@ -3,16 +3,21 @@ package br.com.bom.consultorio.empresa.controllers;
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
 import br.com.bom.consultorio.empresa.payloads.responses.CriarEmpresaApiResponse;
+import br.com.bom.consultorio.empresa.payloads.responses.EmpresaApiResponse;
 import br.com.bom.consultorio.empresa.services.EmpresaService;
 import br.com.bom.consultorio.shared.auth.Autenticado;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Autenticado
 @RestController
@@ -33,5 +38,17 @@ public class GestaoEmpresasAdminController {
 
         EmpresaModel empresaModel = this.empresaService.criarEmpresa(criarEmpresaApiRequest);
         return CriarEmpresaApiResponse.fromModel(empresaModel);
+    }
+
+    @GetMapping
+    @Operation(
+            description = "Lista todas as empresas cadastradas na plataforma",
+            summary = "Listar empresas"
+    )
+    public List<EmpresaApiResponse> buscarTodasEmpresas() {
+        return this.empresaService.buscarEmpresasCadastradas()
+                .stream()
+                .map(EmpresaApiResponse::fromModel)
+                .collect(Collectors.toList());
     }
 }

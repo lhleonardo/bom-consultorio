@@ -30,6 +30,7 @@ public class CriarEmpresaApiResponse {
     private OffsetDateTime dataCriacao;
 
     public static CriarEmpresaApiResponse fromModel(EmpresaModel empresaModel) {
+        // TODO: usar algum mapper
         CriarEmpresaApiResponse criarEmpresaApiResponse = new CriarEmpresaApiResponse();
         criarEmpresaApiResponse.setCnpj(empresaModel.getCnpj());
         criarEmpresaApiResponse.setIdentificador(UUID.fromString(empresaModel.getIdentificador()));

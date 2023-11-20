@@ -2,12 +2,15 @@ package br.com.bom.consultorio.empresa.services;
 
 import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
+import br.com.bom.consultorio.empresa.usecases.BuscarEmpresasUseCase;
 import br.com.bom.consultorio.empresa.usecases.CriarEmpresaUseCase;
 import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Service para gerenciamento das empresas/tenants da plataforma. Aqui serão feitos os cadastros
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmpresaService {
 
     private final CriarEmpresaUseCase criarEmpresaUseCase;
+    private final BuscarEmpresasUseCase buscarEmpresasUseCase;
 
     /**
      * Criar uma nova empresa para utilização como tenant
@@ -40,6 +44,10 @@ public class EmpresaService {
         EmpresaModel empresaCriada = this.criarEmpresaUseCase.executar(useCaseRequest);
         log.info("Empresa criada: {}", empresaCriada);
         return empresaCriada;
+    }
+
+    public List<EmpresaModel> buscarEmpresasCadastradas() {
+        return this.buscarEmpresasUseCase.executar();
     }
 
 }

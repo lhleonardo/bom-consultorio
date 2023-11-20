@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -78,14 +79,20 @@ public class UsuarioModel implements UserDetails {
                 .anyMatch(empresaVinculada -> empresaVinculada.getIdentificador().equals(empresa.getIdentificador()));
     }
 
-    public PerfilAcessoUsuarioEmpresaEnum getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
-        if (this.isAdministradorPlataforma()) return PerfilAcessoUsuarioEmpresaEnum.ADMINISTRADOR;
+    public Optional<PerfilAcessoUsuarioEmpresaEnum> getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
+        if (this.isAdministradorPlataforma()) {
+            return Optional.of(PerfilAcessoUsuarioEmpresaEnum.ADMINISTRADOR);
+        }
+
+        if (Objects.isNull(empresaModel)) {
+            return Optional.empty();
+        }
 
         return this.getEmpresasVinculadas()
                 .stream()
                 .filter(vinculo -> vinculo.getEmpresa().getIdentificador().equals(empresaModel.getIdentificador()))
                 .map(UsuarioEmpresaModel::getPerfil)
-                .findFirst().orElseThrow();
+                .findFirst();
     }
 
     @Override

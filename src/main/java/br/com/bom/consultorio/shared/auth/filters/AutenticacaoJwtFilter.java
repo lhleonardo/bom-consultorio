@@ -4,7 +4,6 @@ import br.com.bom.consultorio.shared.auth.utils.AuthenticationHeadersUtils;
 import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import br.com.bom.consultorio.shared.jwt.dtos.DadosTokenJwtAutenticacaoDto;
 import br.com.bom.consultorio.shared.jwt.services.JwtService;
-import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
 import br.com.bom.consultorio.usuarios.usecases.BuscarUsuarioPeloIdentificadorUseCase;
 import jakarta.servlet.FilterChain;
@@ -23,6 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Log4j2
@@ -33,8 +33,6 @@ public class AutenticacaoJwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     private final BuscarUsuarioPeloIdentificadorUseCase buscarUsuarioPeloIdentificadorUseCase;
-
-    private static final SimpleGrantedAuthority ROLE_ROOT = new SimpleGrantedAuthority("ROOT");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -64,15 +62,15 @@ public class AutenticacaoJwtFilter extends OncePerRequestFilter {
             throw new AccessDeniedException("Usuário não tem permissão para acessar a empresa atual");
         }
 
-        // sempre retorna ADMINISTRADOR caso o usuário seja um usuário ROOT
-        PerfilAcessoUsuarioEmpresaEnum perfilAcesso = usuarioModel.getPerfilAcessoParaEmpresa(EmpresaTenantContext.getEmpresaAtual());
-
         // para usuários ROOT, terão duas permissões: ADMINISTRADOR e ROOT.
-        Set<SimpleGrantedAuthority> permissoes = Collections.emptySet();
-        permissoes.add(new SimpleGrantedAuthority(perfilAcesso.name()));
+        Set<SimpleGrantedAuthority> permissoes = new HashSet<>();
+
+        // sempre retorna ADMINISTRADOR caso o usuário seja um usuário ROOT
+        usuarioModel.getPerfilAcessoParaEmpresa(EmpresaTenantContext.getEmpresaAtual())
+                .ifPresent(perfilAcesso -> permissoes.add(new SimpleGrantedAuthority(perfilAcesso.name())));
 
         if (isAdministrador) {
-            permissoes.add(ROLE_ROOT);
+            permissoes.add(new SimpleGrantedAuthority("ROOT"));
         }
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
