@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Autenticado
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/empresas")
+@RequestMapping("/api/v1/admin/empresas")
 @Tag(name = "Empresas", description = "Gerenciar as empresas/tenants da plataforma")
 public class EmpresaController {
 

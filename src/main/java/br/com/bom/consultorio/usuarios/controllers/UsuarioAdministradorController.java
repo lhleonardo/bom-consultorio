@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/usuarios/admin")
+@RequestMapping("/api/v1/admin/usuarios")
 @SecurityRequirement(name = OpenApiConsts.SECURITY_SCHEMA_NAME)
 @Tag(name = "Usuários Administradores", description = "Gestão dos usuários administradores globais da plataforma")
 public class UsuarioAdministradorController {
