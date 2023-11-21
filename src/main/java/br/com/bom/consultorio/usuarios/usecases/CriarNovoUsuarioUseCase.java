@@ -49,6 +49,11 @@ public class CriarNovoUsuarioUseCase {
         usuarioModel.setEmailVerificado(Boolean.FALSE);
         usuarioModel.setAdministradorPlataforma(criarUsuarioUseCaseRequest.administrador());
 
+        // dados opcionais
+        usuarioModel.setNome(criarUsuarioUseCaseRequest.nome());
+        usuarioModel.setDocumento(criarUsuarioUseCaseRequest.documento());
+        usuarioModel.setTelefone(criarUsuarioUseCaseRequest.telefone());
+
         return this.usuarioRepository.save(usuarioModel);
     }
 

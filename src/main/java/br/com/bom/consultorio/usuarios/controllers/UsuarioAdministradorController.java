@@ -1,7 +1,7 @@
 package br.com.bom.consultorio.usuarios.controllers;
 
 import br.com.bom.consultorio.shared.http.consts.OpenApiConsts;
-import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioRequest;
+import br.com.bom.consultorio.usuarios.payloads.requests.CriarUsuarioApiRequest;
 import br.com.bom.consultorio.usuarios.services.UsuarioAdministradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/usuarios/admin")
+@RequestMapping("/api/v1/admin/usuarios")
 @SecurityRequirement(name = OpenApiConsts.SECURITY_SCHEMA_NAME)
-@Tag(name = "Usuários Administradores", description = "Gestão dos usuários administradores globais da plataforma")
+@Tag(name = "Admin", description = "Gestão da plataforma para usuários administradores")
 public class UsuarioAdministradorController {
 
     private final UsuarioAdministradorService usuarioAdministradorService;
@@ -33,7 +33,7 @@ public class UsuarioAdministradorController {
                     "as empresas. Só pode ser criado por outro usuário administrador.",
             summary = "Criar um novo administrador da plataforma"
     )
-    public void criarUsuarioAdministrador(@RequestBody @Valid CriarUsuarioRequest criarUsuarioRequest) {
-        this.usuarioAdministradorService.criarNovoAdministrador(criarUsuarioRequest);
+    public void criarUsuarioAdministrador(@RequestBody @Valid CriarUsuarioApiRequest criarUsuarioApiRequest) {
+        this.usuarioAdministradorService.criarNovoAdministrador(criarUsuarioApiRequest);
     }
 }

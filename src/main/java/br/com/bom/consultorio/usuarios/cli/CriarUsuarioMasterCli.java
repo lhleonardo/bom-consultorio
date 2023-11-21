@@ -18,14 +18,17 @@ public class CriarUsuarioMasterCli implements CommandLineRunner {
     private final CriarNovoUsuarioUseCase criarNovoUsuarioUseCase;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         long quantidadeUsuariosCadastradas = this.usuarioRepository.count();
 
         if (quantidadeUsuariosCadastradas == 0) {
             CriarUsuarioUseCaseRequest payload = new CriarUsuarioUseCaseRequest(
                     "admin@bom.com.br",
-                    "bom-admin",
-                    true
+                    "123456789",
+                    true,
+                    "Administrador - Plataforma BOM",
+                    null,
+                    null
             );
 
             UsuarioModel usuarioAdminCriado = this.criarNovoUsuarioUseCase.executar(payload);

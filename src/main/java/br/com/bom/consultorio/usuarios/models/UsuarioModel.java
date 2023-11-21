@@ -1,9 +1,11 @@
 package br.com.bom.consultorio.usuarios.models;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
-import br.com.bom.consultorio.usuarios.enums.PerfilAcessoEnum;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.UsuarioEmpresaModel;
+import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -50,8 +53,18 @@ public class UsuarioModel implements UserDetails {
     @Column(name = "ativo", nullable = false)
     private boolean ativo;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<UsuarioEmpresaModel> empresasVinculadas;
+
+    @Column
+    private String nome;
+
+    @Column
+    private String telefone;
+
+    @Column
+    private String documento;
+
 
     @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime dataCriacao;
@@ -68,14 +81,20 @@ public class UsuarioModel implements UserDetails {
                 .anyMatch(empresaVinculada -> empresaVinculada.getIdentificador().equals(empresa.getIdentificador()));
     }
 
-    public PerfilAcessoEnum getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
-        if (this.isAdministradorPlataforma()) return PerfilAcessoEnum.ADMINISTRADOR;
+    public Optional<PerfilAcessoUsuarioEmpresaEnum> getPerfilAcessoParaEmpresa(EmpresaModel empresaModel) {
+        if (this.isAdministradorPlataforma()) {
+            return Optional.of(PerfilAcessoUsuarioEmpresaEnum.ADMINISTRADOR);
+        }
+
+        if (Objects.isNull(empresaModel)) {
+            return Optional.empty();
+        }
 
         return this.getEmpresasVinculadas()
                 .stream()
                 .filter(vinculo -> vinculo.getEmpresa().getIdentificador().equals(empresaModel.getIdentificador()))
                 .map(UsuarioEmpresaModel::getPerfil)
-                .findFirst().orElseThrow();
+                .findFirst();
     }
 
     @Override

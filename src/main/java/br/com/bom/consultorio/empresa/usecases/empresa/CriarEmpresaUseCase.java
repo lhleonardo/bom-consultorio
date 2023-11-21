@@ -1,10 +1,10 @@
-package br.com.bom.consultorio.empresa.usecases;
+package br.com.bom.consultorio.empresa.usecases.empresa;
 
 import br.com.bom.consultorio.empresa.exceptions.EmpresaJaCadastradaParaCnpjException;
 import br.com.bom.consultorio.empresa.exceptions.SlugEmpresaJaCadastradoException;
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
-import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
+import br.com.bom.consultorio.empresa.usecases.empresa.dto.CriarEmpresaUseCaseRequest;
 import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,9 @@ public class CriarEmpresaUseCase {
     /**
      * Criar uma nova empresa na plataforma, para atuar como uma agrupadora de informações. Todos os próximos
      * registros poderão ter o vínculo de "pertencem" a empresa.
+     * <p>
+     * Além disso, ao criar uma empresa, o primeiro usuário de acesso ADMINISTRADOR é criado e vinculado como gestor
+     * da empresa.
      *
      * @param criarEmpresaRequest dados necessários para cadastrar uma nova empresa
      * @return model representativo da empresa

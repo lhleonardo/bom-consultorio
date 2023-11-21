@@ -1,6 +1,6 @@
-package br.com.bom.consultorio.empresa.usecases;
+package br.com.bom.consultorio.empresa.usecases.empresa;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

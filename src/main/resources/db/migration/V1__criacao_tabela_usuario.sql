@@ -7,6 +7,9 @@ CREATE TABLE consultorio.public.usuario
     ativo            boolean                  not null default true,
     administrador    boolean                  not null default false,
     email_verificado boolean                  not null default false,
+    nome             varchar(255),
+    telefone         varchar(50),
+    cpf              varchar(11),
     data_criacao     timestamp with time zone not null default now(),
     data_alteracao   timestamp with time zone
 );

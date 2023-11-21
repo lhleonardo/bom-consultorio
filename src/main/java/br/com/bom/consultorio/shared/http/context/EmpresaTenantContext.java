@@ -1,6 +1,6 @@
 package br.com.bom.consultorio.shared.http.context;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 
 /**
  * Gerenciar variável controlada por thread para armazenar qual é a empresa que está logada no momento.

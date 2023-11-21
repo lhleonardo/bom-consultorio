@@ -27,4 +27,5 @@ public class CriarEmpresaApiRequest {
 
     @Schema(description = "Slug de URL para a empresa informada")
     private String slug;
+
 }
