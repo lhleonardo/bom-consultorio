@@ -1,7 +1,7 @@
-package br.com.bom.consultorio.usuarios.models;
+package br.com.bom.consultorio.empresa.models.empresa;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
 import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
+import br.com.bom.consultorio.usuarios.models.UsuarioModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

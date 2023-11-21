@@ -1,6 +1,6 @@
 package br.com.bom.consultorio.empresa.payloads.responses;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

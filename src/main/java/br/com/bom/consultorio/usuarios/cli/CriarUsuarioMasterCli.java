@@ -24,7 +24,7 @@ public class CriarUsuarioMasterCli implements CommandLineRunner {
         if (quantidadeUsuariosCadastradas == 0) {
             CriarUsuarioUseCaseRequest payload = new CriarUsuarioUseCaseRequest(
                     "admin@bom.com.br",
-                    "bom-admin",
+                    "123456789",
                     true,
                     "Administrador - Plataforma BOM",
                     null,

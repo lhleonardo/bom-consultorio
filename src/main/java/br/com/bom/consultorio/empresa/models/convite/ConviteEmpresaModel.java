@@ -1,6 +1,8 @@
 package br.com.bom.consultorio.empresa.models.convite;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
+import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
+import br.com.bom.consultorio.usuarios.models.UsuarioModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,6 +35,16 @@ public class ConviteEmpresaModel {
     @ManyToOne
     @JoinColumn(name = "id_empresa")
     private EmpresaModel empresa;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "perfil_acesso_convite")
+    private PerfilAcessoUsuarioEmpresaEnum perfilAcesso;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_criador")
+    private UsuarioModel criadoPor;
+
+    private String email;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

@@ -1,10 +1,10 @@
 package br.com.bom.consultorio.empresa.services;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
-import br.com.bom.consultorio.empresa.usecases.BuscarEmpresasUseCase;
-import br.com.bom.consultorio.empresa.usecases.CriarEmpresaUseCase;
-import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
+import br.com.bom.consultorio.empresa.usecases.empresa.BuscarEmpresasUseCase;
+import br.com.bom.consultorio.empresa.usecases.empresa.CriarEmpresaUseCase;
+import br.com.bom.consultorio.empresa.usecases.empresa.dto.CriarEmpresaUseCaseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

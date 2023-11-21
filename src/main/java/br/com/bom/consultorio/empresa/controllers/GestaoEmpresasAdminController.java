@@ -1,6 +1,6 @@
 package br.com.bom.consultorio.empresa.controllers;
 
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.payloads.requests.CriarEmpresaApiRequest;
 import br.com.bom.consultorio.empresa.payloads.responses.CriarEmpresaApiResponse;
 import br.com.bom.consultorio.empresa.payloads.responses.EmpresaApiResponse;

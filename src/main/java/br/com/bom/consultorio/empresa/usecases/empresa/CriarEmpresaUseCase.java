@@ -1,10 +1,10 @@
-package br.com.bom.consultorio.empresa.usecases;
+package br.com.bom.consultorio.empresa.usecases.empresa;
 
 import br.com.bom.consultorio.empresa.exceptions.EmpresaJaCadastradaParaCnpjException;
 import br.com.bom.consultorio.empresa.exceptions.SlugEmpresaJaCadastradoException;
-import br.com.bom.consultorio.empresa.models.EmpresaModel;
+import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
-import br.com.bom.consultorio.empresa.usecases.dto.CriarEmpresaUseCaseRequest;
+import br.com.bom.consultorio.empresa.usecases.empresa.dto.CriarEmpresaUseCaseRequest;
 import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

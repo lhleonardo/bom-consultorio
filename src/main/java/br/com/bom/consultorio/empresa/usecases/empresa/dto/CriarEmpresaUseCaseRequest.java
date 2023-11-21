@@ -1,4 +1,4 @@
-package br.com.bom.consultorio.empresa.usecases.dto;
+package br.com.bom.consultorio.empresa.usecases.empresa.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
