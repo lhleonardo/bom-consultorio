@@ -58,4 +58,9 @@ public class ConviteEmpresaModel {
 
     @Column(name = "data_atualizacao")
     private OffsetDateTime dataAtualizacao;
+
+    public void expirar() {
+        this.status = StatusConviteEnum.EXPIRADO;
+        this.dataAtualizacao = OffsetDateTime.now();
+    }
 }
