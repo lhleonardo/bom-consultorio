@@ -1,6 +1,7 @@
 package br.com.bom.consultorio.empresa.usecases.convites;
 
 import br.com.bom.consultorio.empresa.exceptions.ConviteSemEmpresaException;
+import br.com.bom.consultorio.empresa.exceptions.DuplicidadeConviteException;
 import br.com.bom.consultorio.empresa.exceptions.UsuarioJaPercenteEmpresaException;
 import br.com.bom.consultorio.empresa.models.convite.ConviteEmpresaModel;
 import br.com.bom.consultorio.empresa.models.convite.StatusConviteEnum;
@@ -48,10 +49,14 @@ public class CriarConviteUseCase {
             throw new UsuarioJaPercenteEmpresaException();
         }
 
+        if (this.existeConviteAtivoCadastrado(criarConviteUseCaseRequest)) {
+            throw new DuplicidadeConviteException();
+        }
+
         String codigoConvite = UUID.randomUUID().toString();
 
         ConviteEmpresaModel conviteEmpresaModel = new ConviteEmpresaModel();
-        conviteEmpresaModel.setCodigoConvite(codigoConvite);
+        conviteEmpresaModel.setCodigo(codigoConvite);
         conviteEmpresaModel.setStatus(StatusConviteEnum.PENDENTE);
         conviteEmpresaModel.setCriadoPor(this.usuarioAutenticadoService.getUsuarioAutenticado());
 
@@ -72,5 +77,11 @@ public class CriarConviteUseCase {
      */
     private OffsetDateTime calcularDataExpiracao() {
         return OffsetDateTime.now().plusDays(2).with(LocalTime.MAX);
+    }
+
+    private boolean existeConviteAtivoCadastrado(CriarConviteUseCaseRequest criarConviteUseCaseRequest) {
+        return this.conviteEmpresaRepository
+                .findByEmailAndStatusAndEmpresa(criarConviteUseCaseRequest.email(), StatusConviteEnum.PENDENTE, criarConviteUseCaseRequest.empresaModel())
+                .isPresent();
     }
 }

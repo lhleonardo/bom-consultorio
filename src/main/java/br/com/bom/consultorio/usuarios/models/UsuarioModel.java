@@ -69,7 +69,7 @@ public class UsuarioModel implements UserDetails {
     @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime dataCriacao;
 
-    @Column(name = "data_alteracao", nullable = false)
+    @Column(name = "data_alteracao")
     private OffsetDateTime dataAlteracao;
 
     public boolean possuiVinculoComEmpresa(EmpresaModel empresa) {

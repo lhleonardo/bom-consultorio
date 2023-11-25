@@ -2,6 +2,8 @@ package br.com.bom.consultorio.shared.http.context;
 
 import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 
+import java.util.Objects;
+
 /**
  * Gerenciar variável controlada por thread para armazenar qual é a empresa que está logada no momento.
  *
@@ -19,6 +21,10 @@ public class EmpresaTenantContext {
 
     public static void limpar() {
         EMPRESA_ATUAL.remove();
+    }
+
+    public static boolean possuiValor() {
+        return Objects.nonNull(EMPRESA_ATUAL.get());
     }
 
     public static EmpresaModel getEmpresaAtual() {
