@@ -1,5 +1,6 @@
 package br.com.bom.consultorio.empresa.models.convite;
 
+import br.com.bom.consultorio.empresa.exceptions.TrocarStatusConviteNaoPermitidoException;
 import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
 import br.com.bom.consultorio.usuarios.models.UsuarioModel;
@@ -30,7 +31,7 @@ public class ConviteEmpresaModel {
 
     @UUID
     @Column(name = "codigo_convite")
-    private String codigoConvite;
+    private String codigo;
 
     @ManyToOne
     @JoinColumn(name = "id_empresa")
@@ -60,7 +61,21 @@ public class ConviteEmpresaModel {
     private OffsetDateTime dataAtualizacao;
 
     public void expirar() {
-        this.status = StatusConviteEnum.EXPIRADO;
+        if (!this.getStatus().equals(StatusConviteEnum.PENDENTE)) {
+            throw TrocarStatusConviteNaoPermitidoException.expiracaoNaoPermitida();
+        }
+        this.trocarStatus(StatusConviteEnum.EXPIRADO);
+    }
+
+    public void cancelar() {
+        if (!this.getStatus().equals(StatusConviteEnum.PENDENTE)) {
+            throw TrocarStatusConviteNaoPermitidoException.cancelamentoNaoPermitido();
+        }
+        this.trocarStatus(StatusConviteEnum.CANCELADO);
+    }
+
+    private void trocarStatus(StatusConviteEnum status) {
+        this.status = status;
         this.dataAtualizacao = OffsetDateTime.now();
     }
 }

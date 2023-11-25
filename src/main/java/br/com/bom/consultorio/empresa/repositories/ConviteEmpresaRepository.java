@@ -19,4 +19,7 @@ public interface ConviteEmpresaRepository extends JpaRepository<ConviteEmpresaMo
 
     @EntityGraph(attributePaths = {"empresa", "criadoPor"})
     Optional<ConviteEmpresaModel> findByEmailAndStatusAndEmpresa(String email, StatusConviteEnum statusConviteEnum, EmpresaModel empresa);
+
+    @EntityGraph(attributePaths = {"empresa", "criadoPor"})
+    Optional<ConviteEmpresaModel> findByCodigoAndEmpresa(String codigo, EmpresaModel empresa);
 }

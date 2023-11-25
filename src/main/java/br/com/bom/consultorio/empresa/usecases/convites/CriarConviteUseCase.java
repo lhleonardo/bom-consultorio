@@ -56,7 +56,7 @@ public class CriarConviteUseCase {
         String codigoConvite = UUID.randomUUID().toString();
 
         ConviteEmpresaModel conviteEmpresaModel = new ConviteEmpresaModel();
-        conviteEmpresaModel.setCodigoConvite(codigoConvite);
+        conviteEmpresaModel.setCodigo(codigoConvite);
         conviteEmpresaModel.setStatus(StatusConviteEnum.PENDENTE);
         conviteEmpresaModel.setCriadoPor(this.usuarioAutenticadoService.getUsuarioAutenticado());
 
