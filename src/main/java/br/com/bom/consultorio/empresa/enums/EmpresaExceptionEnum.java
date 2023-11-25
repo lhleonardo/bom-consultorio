@@ -9,7 +9,8 @@ public enum EmpresaExceptionEnum implements MensagensExceptionStrategy {
     SLUG_EMPRESA_JA_CADASTRADO("EMP002", "O 'slug' informado já existe na plataforma"),
     USUARIO_JA_EH_MEMBRO_EMPRESA("EMP003", "O usuário informado já é membro da empresa."),
     CONVITE_EMPRESA_INVALIDA("EMP004", "A empresa para criar o convite é obrigatória"),
-    IDENTIFICADOR_EMPRESA_INVALIDO("EMP005", "O identificador da empresa informado é inválido");
+    IDENTIFICADOR_EMPRESA_INVALIDO("EMP005", "O identificador da empresa informado é inválido"),
+    DUPLICIDADE_CONVITE("EMP006", "Já existe convite ativo para o destinatário informado");
 
     private final String codigo;
     private final String mensagem;
