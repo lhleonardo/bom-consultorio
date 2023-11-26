@@ -14,7 +14,8 @@ public enum EmpresaExceptionEnum implements MensagensExceptionStrategy {
     DUPLICIDADE_CONVITE("EMP007", "Já existe convite ativo para o destinatário informado"),
     RESTRICAO_CANCELAMENTO_CONVITE("EMP008", "Convite não pode ser cancelado"),
     RESTRICAO_EXPIRACAO_CONVITE("EMP009", "Convite não pode ser expirado"),
-    CONVITE_NAO_ENCONTRADO("EMP010", "Convite não encontrado");
+    CONVITE_NAO_ENCONTRADO("EMP010", "Convite não encontrado"),
+    CONVITE_EXPIRADO("EMP011", "Convite está expirado e não pode ser utilizado");
 
     private final String codigo;
     private final String mensagem;
