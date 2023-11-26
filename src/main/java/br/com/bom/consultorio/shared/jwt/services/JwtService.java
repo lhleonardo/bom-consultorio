@@ -41,11 +41,6 @@ public class JwtService {
                 .withSubject(usuarioModel.getIdentificador())
                 .withIssuer(applicationContext.getApplicationName())
                 .withClaim(CamposTokenJwt.MASTER, usuarioModel.isAdministradorPlataforma())
-                .withClaim(
-                        CamposTokenJwt.IDENTIFICADOR_TENANT_EMPRESA,
-                        Objects.isNull(EmpresaTenantContext.getEmpresaAtual()) ?
-                                null : EmpresaTenantContext.getEmpresaAtual().getIdentificador()
-                )
                 .sign(Algorithm.HMAC256(jwtEnvironment.getSecret()));
     }
 
@@ -55,7 +50,6 @@ public class JwtService {
         return DadosTokenJwtAutenticacaoDto.builder()
                 .dataExpiracao(LocalDateTime.ofInstant(tokenDecodificado.getExpiresAtAsInstant(), ZONE_OFFSET_BRASIL))
                 .usuarioMaster(tokenDecodificado.getClaim(CamposTokenJwt.MASTER).asBoolean())
-                .identificadorEmpresaAutenticada(tokenDecodificado.getClaim(CamposTokenJwt.IDENTIFICADOR_TENANT_EMPRESA).asString())
                 .identificadorUsuarioAutenticado(tokenDecodificado.getSubject())
                 .build();
     }

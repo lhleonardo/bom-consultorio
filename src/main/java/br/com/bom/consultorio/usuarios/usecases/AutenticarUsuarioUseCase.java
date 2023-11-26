@@ -24,6 +24,6 @@ public class AutenticarUsuarioUseCase {
 
         String token = this.jwtService.gerarTokenJwt(usuarioModel);
 
-        return new AutenticarUsuarioUseCaseResponse(token, usuarioModel.getEmail(), usuarioModel.getIdentificador());
+        return new AutenticarUsuarioUseCaseResponse(token, usuarioModel.getEmail(), usuarioModel.getNome(), usuarioModel.getIdentificador());
     }
 }
