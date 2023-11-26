@@ -17,4 +17,8 @@ public class TrocarStatusConviteNaoPermitidoException extends AppException {
     public static TrocarStatusConviteNaoPermitidoException expiracaoNaoPermitida() {
         return new TrocarStatusConviteNaoPermitidoException(EmpresaExceptionEnum.RESTRICAO_EXPIRACAO_CONVITE);
     }
+
+    public static TrocarStatusConviteNaoPermitidoException finalizacaoNaoPermitida() {
+        return new TrocarStatusConviteNaoPermitidoException(EmpresaExceptionEnum.RESTRICAO_FINALIZACAO_CONVITE);
+    }
 }

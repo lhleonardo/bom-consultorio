@@ -78,6 +78,13 @@ public class ConviteEmpresaModel {
         this.trocarStatus(StatusConviteEnum.CANCELADO);
     }
 
+    public void finalizar() {
+        if (!this.getStatus().equals(StatusConviteEnum.PENDENTE)) {
+            throw TrocarStatusConviteNaoPermitidoException.finalizacaoNaoPermitida();
+        }
+        this.trocarStatus(StatusConviteEnum.FINALIZADO);
+    }
+
     private void trocarStatus(StatusConviteEnum status) {
         this.status = status;
         this.dataAtualizacao = OffsetDateTime.now();
