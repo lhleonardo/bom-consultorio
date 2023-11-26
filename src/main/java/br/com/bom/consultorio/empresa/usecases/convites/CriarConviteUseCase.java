@@ -8,8 +8,9 @@ import br.com.bom.consultorio.empresa.models.convite.StatusConviteEnum;
 import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.repositories.ConviteEmpresaRepository;
 import br.com.bom.consultorio.empresa.repositories.EmpresaRepository;
-import br.com.bom.consultorio.empresa.usecases.convites.dtos.CriarConviteUseCaseRequest;
 import br.com.bom.consultorio.shared.auth.services.UsuarioAutenticadoService;
+import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CriarConviteUseCase {
 
+    /**
+     * Dados necessários para criar um convite de membro em uma determinada empresa.
+     *
+     * @param empresaModel empresa que o convite será vinculado
+     * @param perfilAcesso perfil de acesso que o usuário terá na empresa ao ingressar pelo convite
+     * @param email        e-mail do usuário que receberá o convite
+     */
+    public record Request
+            (EmpresaModel empresaModel, PerfilAcessoUsuarioEmpresaEnum perfilAcesso, @Email String email) {
+
+    }
+
     private final EmpresaRepository empresaRepository;
     private final ConviteEmpresaRepository conviteEmpresaRepository;
     private final UsuarioAutenticadoService usuarioAutenticadoService;
@@ -37,7 +50,7 @@ public class CriarConviteUseCase {
      * @throws UsuarioJaPercenteEmpresaException caso já exista um membro para a empresa com o e-mail do convite
      */
     @Transactional
-    public void executar(CriarConviteUseCaseRequest criarConviteUseCaseRequest) {
+    public void executar(Request criarConviteUseCaseRequest) {
         EmpresaModel empresaModel = criarConviteUseCaseRequest.empresaModel();
         if (Objects.isNull(empresaModel)) {
             throw new ConviteSemEmpresaException();
@@ -79,7 +92,7 @@ public class CriarConviteUseCase {
         return OffsetDateTime.now().plusDays(2).with(LocalTime.MAX);
     }
 
-    private boolean existeConviteAtivoCadastrado(CriarConviteUseCaseRequest criarConviteUseCaseRequest) {
+    private boolean existeConviteAtivoCadastrado(Request criarConviteUseCaseRequest) {
         return this.conviteEmpresaRepository
                 .findByEmailAndStatusAndEmpresa(criarConviteUseCaseRequest.email(), StatusConviteEnum.PENDENTE, criarConviteUseCaseRequest.empresaModel())
                 .isPresent();

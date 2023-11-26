@@ -6,7 +6,6 @@ import br.com.bom.consultorio.empresa.payloads.requests.CriarNovoConviteApiReque
 import br.com.bom.consultorio.empresa.usecases.convites.CancelarConviteUseCase;
 import br.com.bom.consultorio.empresa.usecases.convites.CriarConviteUseCase;
 import br.com.bom.consultorio.empresa.usecases.convites.DesativarConvitesExpiradosUseCase;
-import br.com.bom.consultorio.empresa.usecases.convites.dtos.CriarConviteUseCaseRequest;
 import br.com.bom.consultorio.shared.http.context.EmpresaTenantContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +25,7 @@ public class ConvitesEmpresaService {
     public void convidar(CriarNovoConviteApiRequest criarNovoConviteApiRequest) {
         EmpresaModel empresaModel = EmpresaTenantContext.getEmpresaAtual();
 
-        CriarConviteUseCaseRequest request = new CriarConviteUseCaseRequest(
+        CriarConviteUseCase.Request request = new CriarConviteUseCase.Request(
                 empresaModel,
                 criarNovoConviteApiRequest.getPerfilAcesso(),
                 criarNovoConviteApiRequest.getEmail()
