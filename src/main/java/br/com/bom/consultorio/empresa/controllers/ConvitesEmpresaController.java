@@ -1,6 +1,7 @@
 package br.com.bom.consultorio.empresa.controllers;
 
 import br.com.bom.consultorio.empresa.payloads.requests.CriarNovoConviteApiRequest;
+import br.com.bom.consultorio.empresa.payloads.responses.AceiteConviteApiResponse;
 import br.com.bom.consultorio.empresa.services.ConvitesEmpresaService;
 import br.com.bom.consultorio.shared.auth.Autenticado;
 import br.com.bom.consultorio.shared.http.consts.HeadersAplicacao;
@@ -14,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,12 +64,24 @@ public class ConvitesEmpresaController {
             )
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelarConvite(@PathVariable(name = "codigo") UUID codigoConvite) {
+    public void cancelarConvite(
+            @PathVariable(name = "codigo")
+            @Parameter(description = "Código do convite") UUID codigoConvite
+    ) {
         this.convitesEmpresaService.cancelar(codigoConvite);
     }
 
-    @GetMapping("/convite")
-    public void listaConvitesDaEmpresa() {
+    @PostMapping("/convite/{codigo}/confirmacao")
+    @Operation(
+            summary = "Aceitar um convite emitido",
+            description = "Realiza o aceite de um convite para um determinado usuário, " +
+                    "tornando membro da empresa com a permissão definida previamente pelo criador do convite."
+    )
+    public AceiteConviteApiResponse aceitarConvite(
+            @PathVariable(name = "codigo")
+            @Parameter(description = "Código do convite") UUID codigoConvite
+    ) {
+        return this.convitesEmpresaService.aceitar(codigoConvite);
     }
 
 }

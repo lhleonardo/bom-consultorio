@@ -24,6 +24,7 @@ public class AutenticacaoService {
         response.setEmail(autenticarUsuarioUseCaseResponse.email());
         response.setIdentificadorUsuario(autenticarUsuarioUseCaseResponse.identificadorUsuario());
         response.setDataAutenticacao(LocalDateTime.now());
+        response.setNome(autenticarUsuarioUseCaseResponse.nome());
 
         return response;
     }

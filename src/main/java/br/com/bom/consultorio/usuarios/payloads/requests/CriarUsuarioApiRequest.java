@@ -1,5 +1,6 @@
 package br.com.bom.consultorio.usuarios.payloads.requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,7 @@ public class CriarUsuarioApiRequest {
     @Schema(description = "Telefone para contato do usuário (sem máscara)")
     private String telefone;
 
+    @JsonIgnore
     public boolean isSenhaConfirmada() {
         return this.senha.equals(this.confirmacaoSenha);
     }

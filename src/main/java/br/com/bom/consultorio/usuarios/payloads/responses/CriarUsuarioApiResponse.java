@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 
 @Data
 @Schema(description = "Dados da criação do usuário")
-public class CriarUsuarioResponse {
+public class CriarUsuarioApiResponse {
 
     @Schema(description = "E-mail de acesso à plataforma")
     private String email;

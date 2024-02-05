@@ -3,6 +3,7 @@ package br.com.bom.consultorio.usuarios.models;
 import br.com.bom.consultorio.empresa.models.empresa.EmpresaModel;
 import br.com.bom.consultorio.empresa.models.empresa.UsuarioEmpresaModel;
 import br.com.bom.consultorio.usuarios.enums.PerfilAcessoUsuarioEmpresaEnum;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -53,7 +54,7 @@ public class UsuarioModel implements UserDetails {
     @Column(name = "ativo", nullable = false)
     private boolean ativo;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UsuarioEmpresaModel> empresasVinculadas;
 
     @Column
@@ -71,6 +72,16 @@ public class UsuarioModel implements UserDetails {
 
     @Column(name = "data_alteracao")
     private OffsetDateTime dataAlteracao;
+
+    public void adicionarVinculoEmpresa(EmpresaModel empresa, PerfilAcessoUsuarioEmpresaEnum perfilAcessoEnum) {
+        UsuarioEmpresaModel usuarioEmpresaModel = new UsuarioEmpresaModel();
+        usuarioEmpresaModel.setUsuario(this);
+        usuarioEmpresaModel.setEmpresa(empresa);
+        usuarioEmpresaModel.setPerfil(perfilAcessoEnum);
+        usuarioEmpresaModel.setDataCriacao(OffsetDateTime.now());
+
+        this.empresasVinculadas.add(usuarioEmpresaModel);
+    }
 
     public boolean possuiVinculoComEmpresa(EmpresaModel empresa) {
         if (Objects.isNull(empresa)) return false;

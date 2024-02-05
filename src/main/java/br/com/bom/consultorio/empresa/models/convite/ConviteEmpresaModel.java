@@ -60,6 +60,10 @@ public class ConviteEmpresaModel {
     @Column(name = "data_atualizacao")
     private OffsetDateTime dataAtualizacao;
 
+    public boolean isExpirado() {
+        return this.status.equals(StatusConviteEnum.EXPIRADO) || this.dataExpiracao.isBefore(OffsetDateTime.now());
+    }
+
     public void expirar() {
         if (!this.getStatus().equals(StatusConviteEnum.PENDENTE)) {
             throw TrocarStatusConviteNaoPermitidoException.expiracaoNaoPermitida();
@@ -72,6 +76,13 @@ public class ConviteEmpresaModel {
             throw TrocarStatusConviteNaoPermitidoException.cancelamentoNaoPermitido();
         }
         this.trocarStatus(StatusConviteEnum.CANCELADO);
+    }
+
+    public void finalizar() {
+        if (!this.getStatus().equals(StatusConviteEnum.PENDENTE)) {
+            throw TrocarStatusConviteNaoPermitidoException.finalizacaoNaoPermitida();
+        }
+        this.trocarStatus(StatusConviteEnum.FINALIZADO);
     }
 
     private void trocarStatus(StatusConviteEnum status) {

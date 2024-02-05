@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Builder
 public class DadosTokenJwtAutenticacaoDto {
     private String identificadorUsuarioAutenticado;
-    private String identificadorEmpresaAutenticada;
     private boolean usuarioMaster;
     private LocalDateTime dataExpiracao;
 }
